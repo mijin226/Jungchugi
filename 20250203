@@ -1,0 +1,62 @@
+1. 모듈
+  1) 모듈 정의
+    - 서브루틴, 서브시스템, 소프트웨어 내 프로그램, 작업단위 등 의미로 활용
+      + 루틴 : 기능을 가진 명령어들 모임
+      + 메인 루틴 : 프로그램 실행 줄기
+      + 서브루틴 : 메인 루틴에 의해 필요할 때마다 호출되는 루틴
+
+  2) 모듈의 독립성
+    - 기능적 독립성 有 : 소프트웨어 구성 각 모듈의 기능 모두 서로 독립적. 과한 상호작용을 배제
+    - 오류 발생 시, 모듈의 경우 쉽게 발견 및 해결 용이
+    - 독립성 판단 기준 : 결합도와 응집도 여부로 측정. 결합도 ↓ 응집도 ↑  모듈 크기 小
+
+​
+
+​
+
+2. 결합도
+  1) 결합도 정의
+    - 상호 의존 정도 및 두 모듈 사이의 연관관계
+    - 높은 품질은 결합도 ↓   /   낮은 품질은 결합도 ↑(시스템 구현 및 유지보수 어려움)
+      class DataCouplingExample {
+      public int add(int a, int b) {  // 필요한 데이터만 전달
+        return a + b;
+        }
+      }
+
+      public class Main {
+        public static void main(String[] args) {
+          DataCouplingExample obj = new DataCouplingExample();
+          int result = obj.add(5, 10);
+          System.out.println("결과: " + result);
+        }
+      }
+
+
+  2) 결합도 종류(1일수록 결합도↓ 6일수록 결합도↑)
+    (1) 자료 결합도 
+      - 모듈 간 인터페이스가 자료 요소로만 구성됨.
+      - 특정 모듈이 다른 모듈 호출하면서 매개변수 혹은 인수로 데이터 전달, 전달받은 데이터 처리 결과 반환
+
+      class StampCouplingExample {
+        static class Data {
+          int x;
+          int y;
+        }
+
+        public void process(Data data) {  // 객체 자체를 전달
+          System.out.println("x: " + data.x + ", y: " + data.y);
+        }
+      }
+
+      public class Main {
+        public static void main(String[] args) {
+          StampCouplingExample obj = new StampCouplingExample();
+          StampCouplingExample.Data data = new StampCouplingExample.Data();
+          data.x = 10;
+          data.y = 20;
+          obj.process(data);
+        }
+      }
+
+      
